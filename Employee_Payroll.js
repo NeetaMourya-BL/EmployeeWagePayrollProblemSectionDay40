@@ -163,9 +163,4 @@ let getTotalWage=empDailyHrsArray.reduce((totalWage, dailyWageHoursObject)=>{
 },0);
 console.log("UC11 Total wage: " +getTotalWage);
 
-//UC11A get total hours using arrow function
-let getTotalHours=empDailyHrsArray.reduce((totalHours,dailyHoursObject)=>{
-return totalHours+=dailyHoursObject.dailyHours;
-},0);
-console.log("UC11 Total hours: " +getTotalHours);
 
