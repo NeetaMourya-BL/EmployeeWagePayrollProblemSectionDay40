@@ -42,7 +42,9 @@ while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS
     empDailyHrsArray.push({
         day:totalWorkingDays,
         dailyHours:empHrs,
-        dailyWage:calculateDailyWage(empHrs)});
+        dailyWage:calculateDailyWage(empHrs),
+    toString(){},
+});
 }
 let empWage = totalEmpHrs * WAGE_PER_HOUR;
 console.log("UC7 -Total Days:" + totalWorkingDays + "," + " Total Hours:" + totalEmpHrs);
@@ -153,4 +155,17 @@ console.log("Full Working Days :" + fullWorkingDays);
 console.log("Part Working Days :" + partWorkingDays);
 console.log("Non Working Days :" + nonWorkingDays);
 // UC10 Ability to store the Day,Hours Worked and Wage Earned in a single object.
-console.log(empDailyHrsArray);
+console.log("UC10 Showing daily hours worked and wage earned:" +empDailyHrsArray);
+
+//UC11A get total wage using arrow function
+let getTotalWage=empDailyHrsArray.reduce((totalWage, dailyWageHoursObject)=>{
+    return totalWage+=dailyWageHoursObject.dailyWage;
+},0);
+console.log("UC11 Total wage: " +getTotalWage);
+
+//UC11A get total hours using arrow function
+let getTotalHours=empDailyHrsArray.reduce((totalHours,dailyHoursObject)=>{
+return totalHours+=dailyHoursObject.dailyHours;
+},0);
+console.log("UC11 Total hours: " +getTotalHours);
+
