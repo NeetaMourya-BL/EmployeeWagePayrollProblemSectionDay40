@@ -161,10 +161,23 @@ console.log("UC10 Showing daily hours worked and wage earned:" +empDailyHrsArray
 let getTotalWage=empDailyHrsArray.reduce((totalWage, dailyWageHoursObject)=>{
     return totalWage+=dailyWageHoursObject.dailyWage;
 },0);
-console.log("UC11 Total wage: " +getTotalWage);
+console.log("UC11A Total wage: " +getTotalWage);
 
 //UC11A get total hours using arrow function
 let getTotalHours=empDailyHrsArray.reduce((totalHours,dailyHoursObject)=>{
     return totalHours+=dailyHoursObject.dailyHours;
     },0);
-    console.log("UC11 Total hours: " +getTotalHours);
+    console.log("UC11A Total hours: " +getTotalHours);
+
+    //UC11B Show the full workings days using foreach
+empDailyHrsArray.forEach(dailyWageHoursObject=>{
+    if (dailyWageHoursObject.dailyHours==FULL_TIME_HOURS){
+        console.log(dailyWageHoursObject);}
+})
+console.log(fullWorkingDays);
+// UC11B another way
+empDailyHrsArray.filter(dailyWageHoursObject=>
+    dailyWageHoursObject.dailyHours==FULL_TIME_HOURS).
+    forEach(dailyWorkHrs=>console.log(dailyWorkHrs));
+
+
