@@ -199,3 +199,9 @@ let partWorkingDayStrArr = empDailyHrsAndWageArr
     .filter(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject.dailyHours == PART_TIME_HOURS)
     .map(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject);
 console.log(partWorkingDayStrArr);
+//UC11D no working day using map
+console.log("UC11d No Working Days : ");
+let noWorkingDays = empDailyHrsAndWageArr
+    .filter(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject.dailyHours == 0)
+    .map(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject);
+console.log(noWorkingDays);
