@@ -1,3 +1,4 @@
+/** UC11 Objects Opeartions using arrow functions */
 const IS_PART_TIME = 1;
 const IS_FULL_TIME = 2;
 const PART_TIME_HOURS = 4;
@@ -11,7 +12,7 @@ let empDailyHrsMap = new Map();
 let fullWorkingDays = new Array();
 let partWorkingDays = new Array();
 let nonWorkingDays = new Array();
-let empDailyHrsArray = new Array();
+let empDailyHrsAndWageArr = new Array();
 
 function getWorkingHours(empCheck) {
     switch (empCheck) {
@@ -36,16 +37,19 @@ while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS
     let empCheck = Math.floor(Math.random() * 10) % 3;
     let empHrs = getWorkingHours(empCheck);
     totalEmpHrs += empHrs;
+    empDailyHrsAndWageArr.push({
+        day: totalWorkingDays,
+        dailyHours: empHrs,
+        dailyWage: calculateDailyWage(empHrs),
+        toString() {
+            return "\n Day " + this.day + " => Daily Working Hours " + this.dailyHours + " Daily wage = " + this.dailyWage
+        },
+    });
     empDailyWageArr.push(calculateDailyWage(empHrs));
     empDailyWageMap.set(totalWorkingDays, calculateDailyWage(empHrs));
     empDailyHrsMap.set(totalWorkingDays, empHrs);
-    empDailyHrsArray.push({
-        day:totalWorkingDays,
-        dailyHours:empHrs,
-        dailyWage:calculateDailyWage(empHrs),
-    toString(){},
-});
 }
+
 let empWage = totalEmpHrs * WAGE_PER_HOUR;
 console.log("UC7 -Total Days:" + totalWorkingDays + "," + " Total Hours:" + totalEmpHrs);
 console.log("Daily wage array:" + empDailyWageArr);
@@ -154,30 +158,44 @@ empDailyHrsMap.forEach((value, key) => {
 console.log("Full Working Days :" + fullWorkingDays);
 console.log("Part Working Days :" + partWorkingDays);
 console.log("Non Working Days :" + nonWorkingDays);
-// UC10 Ability to store the Day,Hours Worked and Wage Earned in a single object.
-console.log("UC10 Showing daily hours worked and wage earned:" +empDailyHrsArray);
 
-//UC11A get total wage using arrow function
-let getTotalWage=empDailyHrsArray.reduce((totalWage, dailyWageHoursObject)=>{
-    return totalWage+=dailyWageHoursObject.dailyWage;
-},0);
-console.log("UC11A Total wage: " +getTotalWage);
+//UC 10 Store the day, hours worked and wage earned in single object
+console.log("UC10 Use of JS Object Creation :");
+console.log("Day, Daily hours and wage using single object: ");
+console.log(empDailyHrsAndWageArr);
 
-//UC11A get total hours using arrow function
-let getTotalHours=empDailyHrsArray.reduce((totalHours,dailyHoursObject)=>{
-    return totalHours+=dailyHoursObject.dailyHours;
-    },0);
-    console.log("UC11A Total hours: " +getTotalHours);
+//UC11 Object operatins using arrow functions
+console.log("UC11 Object operatins using arrow functions :");
+//11a Calculate total wage and total hours worked
+let totalWagee = empDailyHrsAndWageArr.reduce((totalWage, empDailyHrsAndWageArrObject) => {
+    return totalWage += empDailyHrsAndWageArrObject.dailyWage;
+},
+    0);
+console.log("UC11a Total Wage :" + totalWagee);
 
-    //UC11B Show the full workings days using foreach
-empDailyHrsArray.forEach(dailyWageHoursObject=>{
-    if (dailyWageHoursObject.dailyHours==FULL_TIME_HOURS){
-        console.log(dailyWageHoursObject);}
-})
-console.log(fullWorkingDays);
-// UC11B another way
-empDailyHrsArray.filter(dailyWageHoursObject=>
-    dailyWageHoursObject.dailyHours==FULL_TIME_HOURS).
-    forEach(dailyWorkHrs=>console.log(dailyWorkHrs));
+let totalHours = empDailyHrsAndWageArr.reduce((totalHours, empDailyHrsAndWageArrObject) => {
+    return totalHours += empDailyHrsAndWageArrObject.dailyHours;
+},
+    0);
+console.log("UC11a Total Hours :" + totalHours);
 
+//11b Show full working days using foreach
+console.log("UC11b Full Working Days : ");
+empDailyHrsAndWageArr.forEach(empDailyHrsAndWageArrObject => {
+    if (empDailyHrsAndWageArrObject.dailyHours == FULL_TIME_HOURS) {
+        console.log(empDailyHrsAndWageArrObject);
+    }
+}
+)
+//11b other way
+console.log("11b Other way :")
+empDailyHrsAndWageArr
+    .filter(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject.dailyHours == FULL_TIME_HOURS)
+    .forEach(dailyWorkHrs => console.log(dailyWorkHrs));
 
+//11c part working days using map by reducing to String array
+console.log("UC11c Part Working Days : ");
+let partWorkingDayStrArr = empDailyHrsAndWageArr
+    .filter(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject.dailyHours == PART_TIME_HOURS)
+    .map(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject);
+console.log(partWorkingDayStrArr);
