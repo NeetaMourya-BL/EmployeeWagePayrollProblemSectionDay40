@@ -41,4 +41,4 @@ try {
     console.error(e);
 }
 let newEmployeePayrollData = new EmployeePayrollData(2, "Terissa", 400000, "F", new Date());
-console.log(newEmployeePayrollData.toString()); 
+console.log(newEmployeePayrollData.toString());
